@@ -1,0 +1,13 @@
+[build-system]
+requires = [
+    "setuptools>=42",  # setuptools のバージョンを指定 (42以上が一般的)
+    "wheel",           # wheel パッケージもビルドに必要
+    "pybind11>=2.6"    # ★ ビルド時に pybind11 が必要であることを指定 (バージョンは適宜調整)
+]
+build-backend = "setuptools.build_meta"
+
+# オプション: プロジェクトに関する他のメタ情報も記述できますが、
+# setup.py と重複させる必要はありません。
+# [project]
+# name = "pytracik"
+# dynamic = ["version"] # バージョンは setup.py で動的に決定する場合

@@ -76,7 +76,7 @@ if __name__ == '__main__':
     else:
         print(f"警告: {version_file} が見つかりません。デフォルトバージョン '{version}' を使用します。", file=sys.stderr)
 
-    module_name = "pytracik"
+    module_name = "pytracik._pytracik"
     src_dir = os.path.join(".", "src")
     src_files = []
     for ext in ['.cpp', '.cxx', '.cc']:

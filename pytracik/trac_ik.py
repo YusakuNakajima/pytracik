@@ -89,7 +89,12 @@ class TracIK(object):
         :param seed_jnt_values: 1xN seed joint values
         :return: None if no solution is found, otherwise 1xN joint values
         """
-        if not isinstance(tgt_pos, np.ndarray) or tgt_pos.shape != (3,):
+        if not isinstance(tgt_pos, np.ndarray):
+            try:
+                tgt_pos = np.array(tgt_pos, dtype=float)
+            except Exception as e:
+                raise ValueError("tgt_pos must be convertible to a numpy array of shape (3,)") from e
+        if tgt_pos.shape != (3,):
             raise ValueError("tgt_pos must be a numpy array of shape (3,)")
 
         if isinstance(tgt_rot, np.ndarray):

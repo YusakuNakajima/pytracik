@@ -128,7 +128,7 @@ class TracIK(object):
         if succ:
             return r[1:]
         else:
-            return None
+            return np.array([])
 
     def fk(self, q: np.ndarray) -> (np.ndarray, np.ndarray):
         """

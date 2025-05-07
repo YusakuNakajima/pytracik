@@ -90,7 +90,10 @@ if __name__ == '__main__':
     include_dirs = [
         pybind11.get_include(),  # pybind11 のヘッダーパス
         src_dir,                 # プロジェクト自身のソース/ヘッダーディレクトリ
-        '/usr/include/eigen3'    # Eigen の標準ヘッダーパス
+        '/usr/include/eigen3',    # Eigen の標準ヘッダーパス
+        '/usr/include/',    # システムの標準ヘッダーパス
+        '/usr/local/include/'    # ユーザーの標準ヘッダーパス
+
     ]
 
     libraries = [
@@ -109,6 +112,7 @@ if __name__ == '__main__':
         '-Wall',
         '-Wextra',
         '-Wno-unused-parameter',
+        '-I/usr/include' 
     ]
 
     extra_link_args = []  # 必要に応じて追加

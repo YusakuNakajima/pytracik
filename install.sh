@@ -10,4 +10,4 @@ cd ../../
 sudo rm -r tmp
 # install pip packages (assuming you are in a virtual environment as per your previous request)
 python3 -m pip install -r requirements.txt
-python3 -m pip install -e .
+python3 -m pip install .

@@ -21,7 +21,8 @@ from scipy.spatial.transform import Rotation
 class TracIK(object):
     def __init__(self, base_link_name: str,
                  tip_link_name: str,
-                 urdf_path: str,
+                 urdf_path: str = None,
+                 urdf_string: str = None,
                  timeout: float = .005,
                  epsilon: float = 1e-5,
                  solver_type: Literal['Speed', 'Distance', 'Manip1', 'Manip2'] = "Speed"):
@@ -31,12 +32,12 @@ class TracIK(object):
 
         :param str base_link: Starting link of the chain.
         :param str tip_link: Last link of the chain.
+        :param str urdf_path: Optional path to URDF file. If not given, urdf_string must be provided.
+        :param str urdf_string: Optional URDF string. If not given, urdf_path must be provided.
         :param float timeout: Timeout in seconds for the IK calls.
         :param float epsilon: Error epsilon.
         :param solve_type str: Type of solver, can be:
             Speed (default), Distance, Manipulation1, Manipulation2
-        :param urdf_string str: Optional arg, if not given URDF is taken from
-            the param server at /robot_description.
         """
         if solver_type == "Speed":
             _solve_type = pytracik.SolveType.Speed
@@ -49,11 +50,16 @@ class TracIK(object):
         else:
             raise ValueError(f"Unsupported solver type: {solver_type}")
 
-        urdf_path = Path(urdf_path)
-        if urdf_path.exists():
-            urdf_string = urdf_path.read_text()
+        if urdf_path is not None:
+            urdf_path = Path(urdf_path)
+            if urdf_path.exists():
+                urdf_string = urdf_path.read_text()
+            else:
+                raise ValueError(f"{urdf_path} does not exist")
+        elif urdf_string is not None:
+            pass
         else:
-            raise ValueError(f"{urdf_path} is not exist")
+            raise ValueError("Either urdf_path or urdf_string must be provided")
         self._urdf_string = urdf_string
         self._timeout = timeout
         self._epsilon = epsilon

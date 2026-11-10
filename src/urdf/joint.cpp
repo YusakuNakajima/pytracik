@@ -124,27 +124,27 @@ namespace urdf{
 	std::shared_ptr<JointSafety> JointSafety::fromXml(TiXmlElement* xml) {
 		std::shared_ptr<JointSafety> js = std::make_shared<JointSafety>();
 
-		const char* lower_limit_str = xml->Attribute("lower_limit");
+		const char* lower_limit_str = xml->Attribute("soft_lower_limit");
 		if (lower_limit_str != NULL) {
 			try {
 				js->lower_limit = boost::lexical_cast<double>(lower_limit_str);
 			} catch (boost::bad_lexical_cast &e) {
 				std::ostringstream error_msg;
 				error_msg << "Error while parsing joint '" << getParentJointName(xml)
-						  << "' safety lower_limit value (" << lower_limit_str
+						  << "' safety soft_lower_limit value (" << lower_limit_str
 						  << ") is not a float: " << e.what() << "!";
 				throw URDFParseError(error_msg.str());
 			}
 		}
 
-		const char* upper_limit_str = xml->Attribute("upper_limit");
+		const char* upper_limit_str = xml->Attribute("soft_upper_limit");
 		if (upper_limit_str != NULL){
 			try {
 				js->upper_limit = boost::lexical_cast<double>(upper_limit_str);
 			} catch (boost::bad_lexical_cast &e) {
 				std::ostringstream error_msg;
 				error_msg << "Error while parsing joint '" << getParentJointName(xml)
-						  << "' safety upper_limit value (" << upper_limit_str
+						  << "' safety soft_upper_limit value (" << upper_limit_str
 						  << ") is not a float: " << e.what() << "!";
 				throw URDFParseError(error_msg.str());
 			}
